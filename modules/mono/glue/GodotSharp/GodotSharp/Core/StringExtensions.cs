@@ -448,13 +448,20 @@ namespace Godot
 
             int instanceIndex = 0;
             int toIndex = 0;
+            int toLength = to.Length;
+            int instanceLength = instance.Length;
 
             if (caseSensitive) // Outside while loop to avoid checking multiple times, despite some code duplication.
             {
                 while (true)
                 {
+                    /* This code is what causes the scripts to crash
                     if (to[toIndex] == 0 && instance[instanceIndex] == 0)
                         return 0; // We're equal
+                        */
+                    
+                    if (toIndex >= toLength && instanceIndex >= instanceLength)
+                        return 0;
                     if (instance[instanceIndex] == 0)
                         return -1; // If this is empty, and the other one is not, then we're less... I think?
                     if (to[toIndex] == 0)
